@@ -6,18 +6,10 @@ from sys import argv,exit
 
 now = datetime.now()
 
-if len(argv) < 2:
-    print 'No domain specified on the command line, usage:  '
-    print ''
-    print '    ./check-domain.py example.net'
-    exit(1)
-
 domain = argv[1]
-try:
-    w = whois.whois(domain)
-except whois.parser.PywhoisError as e:
-    print e
-    exit(1)
+
+w = whois.query(domain)
+
 
 if type(w.expiration_date) == list:
     w.expiration_date = w.expiration_date[0]
